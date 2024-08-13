@@ -42,7 +42,7 @@ export const sendMessage = async(req, res)=>{
         //save the conversaion and new message using the Promise
         await Promise.all([conversation.save(), newMessage.save()]);
         //return the respone
-        res.status(201).json({message: "Message sent successfully"});
+        res.status(201).json(newMessage);
 
     } catch (error) {
         console.log("Error in sendMessage controll", error.message);
@@ -63,7 +63,11 @@ export const getMessages = async(req, res)=>{
             participants:{$all: [senderId, userToChatId]}
         }).populate("messages");
 
-        res.status(200).json(conversation.messages);
+        // Handle the case where no conversation is found
+        if (!conversation) return res.status(200).json([]);
+        
+        const messages = conversation.messages;
+        res.status(200).json(messages);
 
     } catch (error) {
         console.log("Error in getMessages controll", error.message);
