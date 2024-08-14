@@ -17,6 +17,7 @@
     "react-router-dom": "^6.26.0",
     "react-scrollable-feed": "^2.0.2",
     "socket.io-client": "^4.7.5",
+    "talk-a-tive": "file:..",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
